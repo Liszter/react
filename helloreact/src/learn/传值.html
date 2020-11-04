@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Hello React!</title>
+    <script src="https://cdn.staticfile.org/react/16.4.0/umd/react.development.js"></script>
+    <script src="https://cdn.staticfile.org/react-dom/16.4.0/umd/react-dom.development.js"></script>
+    <script src="https://cdn.staticfile.org/babel-standalone/6.26.0/babel.min.js"></script>
+    <style>
+
+    </style>
+</head>
+
+<body>
+
+    <div id="root"></div>
+</body>
+
+
+<script type="text/babel">
+    /** 
+ * 父组件传递给子组件 通过props --- 数组
+ * 子组件传递给父组件是 通过一个函数传递
+ * 
+ * */
+
+
+/**
+ * 实现一个  todoList 功能
+ * 
+ * */
+class App extends React.Component {
+    state = {
+        heroList: [
+            {id:1, name: 'fei'}
+        ]
+    }
+    handleAdd = (value) => {
+         console.log(value);
+        const { heroList } = this.state
+        heroList.push({
+            id: heroList.length,
+            name: value
+        })
+
+        this.setState({ heroList })
+    }
+    render() {
+        const { heroList } = this.state
+        return (
+            <div>
+                <Add add={this.handleAdd}/>
+                <List heroList={heroList} />
+            </div>
+            );
+    }
+}
+class Add extends React.Component {
+     
+    hanleClick = () => {
+        console.log(this.input.value);
+        // 调用父组件的方法  并传参
+        this.props.add(this.input.value)
+        this.input.value = ''
+
+    }
+
+    render() {
+        return (
+            <div>
+                <input type="text" ref={(input) => {this.input = input}}/>
+                <button onClick={this.hanleClick}>ADD</button>
+                </div>
+        );
+    }
+}
+function List (props) {
+    let listArr = props.heroList;
+    let ccc = listArr.map( (item, index) => {
+        return <li key={index} > {item.name} </li>;
+    });
+    return (
+        <ul>{ccc}</ul>
+    );
+}
+
+
+
+
+
+//  class Input extends React.Component {
+//      constructor(props) {
+//         super(props);
+//      }
+//      state = {
+//          value: ''
+//      }
+
+//      handleAdd(e) {
+//          console.log(1);
+//          console.log(e);
+//      }
+
+//      handleChage(e) {
+//         this.setState({
+//             value: e.target.value
+//         })
+//      }
+//      handleAdd = () => {
+//          console.log(this.state.value);
+//          heroList.push({
+//              id: heroList.length,
+//              name: this.state.value
+//          })
+//          console.log(heroList);
+//      }
+//      render() {
+//          return (
+//             <div>
+//                 <input type="text" value={this.state.value} onChange={this.handleChage.bind(this)}/>
+//                 <button onClick={this.handleAdd}>add</button>
+//             </div>
+//          )
+//      }
+//  }
+
+// //  展示的组件
+//  function List (){
+//     let Arr = heroList;
+//     console.log(Arr);
+//     const liDom = Arr.map((items) =>
+//     <li key={items.id}>{items.name}</li>
+//   );
+  
+//     return (
+//         <ul>
+//             {liDom}
+//         </ul>
+//     );
+//  }
+ 
+//  let heroList = [
+//      {id: 1, name: 'fei'}
+//  ]
+//  class TodoList extends React.Component {
+
+//      render() {
+//          return (
+//              <div>
+//                 <Input add={this.handleAdd}/>
+//                 <List />
+//             </div>
+//          )
+//      }
+//  }
+
+ ReactDOM.render(
+    <App />,
+    document.getElementById('root')
+ )
+
+
+</script>
+
+</html>

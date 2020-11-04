@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Hello React!</title>
+    <script src="https://cdn.staticfile.org/react/16.4.0/umd/react.development.js"></script>
+    <script src="https://cdn.staticfile.org/react-dom/16.4.0/umd/react-dom.development.js"></script>
+    <script src="https://cdn.staticfile.org/babel-standalone/6.26.0/babel.min.js"></script>
+    <style>
+  
+    </style>
+</head>
+
+<body>
+
+    <div id="root"></div>
+</body>
+
+
+<script type="text/babel">
+
+// class Input extends React.Component {
+//     handleClick = () => {
+//         console.log(this.input.value);
+//         console.log(this.refs.myP);
+//     }
+//     // 非受控组件
+//     render() {
+//         return (
+//             <div>
+//                 <p ref="myP">这是p</p>
+//                 <input type="text" ref={(input) => {this.input = input}}/>  
+//                 <button onClick={this.handleClick}>click</button>
+//             </div>
+//         )
+//     }
+// }
+
+// 受控组件 建议这样
+class Input extends React.Component {
+    state = {
+        value: ''
+    }
+    handleChange = (e) => {
+        console.log(e);
+        console.log(e.target.value);
+
+        this.setState({
+            value: e.target.value 
+        })
+    }
+    handleClick = () => {
+        console.log(this.state.value);
+    }
+    render() {
+        const { value } = this.state.value
+        return (
+            <div>
+                <input type="text" value={value} onChange={this.handleChange}/>
+                <button onClick={this.handleClick}>Click</button>
+            </div>
+        );
+    }
+}
+
+ReactDOM.render(
+    <Input />,
+    document.getElementById('root')
+)
+
+</script>
+
+</html>

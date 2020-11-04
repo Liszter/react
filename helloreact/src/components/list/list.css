@@ -1,0 +1,10 @@
+.list-box {
+    box-sizing: border-box;
+    margin: 10px 20px;
+    height: calc(100vh - 100px);
+    border: 1px solid #efefef;
+}
+
+.chat-item {
+    margin: 10px 0;
+}
